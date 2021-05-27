@@ -1,38 +1,60 @@
 .App {
   text-align: center;
+  font-family: 'Open Sans', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.row {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 20px;
+  margin: auto;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.box {
+  border: 1px solid #a8a8a8;
+  margin: 0px 30px 0px 30px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.box-console {
+  width: 700px;
+  height: 300px;
+  display: flex;
+  flex-direction: column-reverse;
+  overflow-y: scroll;
+}
+
+.box-data {
+  width: 250px;
+  height: 300px;
+}
+
+.telemetry-text {
+  text-align: left;
+  padding: 0px 7px 0px 7px;
+  font-size: 14px;
+}
+
+.debug-message {
+  text-align: left;
+  margin: 0px;
+  padding: 5px 15px 10px 15px;
+}
+
+.debug-message:hover {
+  background-color: #ececec;
+}
+
+#top-row {
+  border-bottom: 1px solid #bcbcbc;
+  width: 50%;
+  padding: 0px;
+}
+
+#camera {
+  width: 320px;
+  height: 180px;
+  background-color: black;
 }
