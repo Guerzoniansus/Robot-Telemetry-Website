@@ -23,7 +23,6 @@ class App extends Component {
 
         telemetry: {
             general: {
-                connection: "no connection",
                 battery: UNKNOWN,
                 state: UNKNOWN
             },
@@ -38,6 +37,7 @@ class App extends Component {
                 rightMotor: UNKNOWN,
                 arm: UNKNOWN,
                 gripper: UNKNOWN,
+                leds: UNKNOWN,
                 display: UNKNOWN
             },
 
