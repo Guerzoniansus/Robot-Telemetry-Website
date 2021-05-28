@@ -60,8 +60,14 @@ class App extends Component {
     }
 
     onDataReceived(data) {
-        // this.setState(data);
-        this.sendDebugMessage(data);
+        const telemetry = data.telemetry;
+        this.state.telemetry = telemetry;
+
+        const debugMessages = data.debug;
+
+        debugMessages.forEach(message => this.sendDebugMessage(message));
+
+        this.setState(this.state);
     }
 
     async setupSocket() {
