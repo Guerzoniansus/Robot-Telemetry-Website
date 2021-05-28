@@ -78,7 +78,6 @@ class App extends Component {
         this.socket.addEventListener("open", () => this.sendDebugMessage(CONNECT_MESSAGE));
 
         this.socket.addEventListener("close", () => this.onConnectionClosed());
-        this.socket.addEventListener("error", () => this.onConnectionClosed());
         this.socket.addEventListener("message", (event) => this.onDataReceived(event.data))
     }
 
