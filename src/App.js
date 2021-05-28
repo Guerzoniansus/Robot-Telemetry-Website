@@ -60,10 +60,12 @@ class App extends Component {
     }
 
     onDataReceived(data) {
-        const telemetry = data.telemetry;
+        const jsonData = JSON.parse(data);
+
+        const telemetry = jsonData.telemetry;
         this.state.telemetry = telemetry;
 
-        const debugMessages = data.debug;
+        const debugMessages = jsonData.debug;
 
         debugMessages.forEach(message => this.sendDebugMessage(message));
 
