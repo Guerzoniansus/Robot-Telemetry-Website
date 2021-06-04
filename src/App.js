@@ -3,6 +3,7 @@ import './App.css';
 import React, {Component} from 'react';
 import Console from "./components/Console";
 import DataBox from "./components/DataBox";
+import Camera from "./components/Camera";
 
 const UNKNOWN = "-";
 const IP_RASPBERRY = "ws://192.168.68.104:8080";
@@ -20,6 +21,8 @@ class App extends Component {
 
     state = {
         debugMessages: ["This is where debug messages will be displayed."],
+
+        camera: "",
 
         telemetry: {
             general: {
@@ -69,6 +72,9 @@ class App extends Component {
 
         debugMessages.forEach(message => this.sendDebugMessage(message));
 
+        const cameraFeed = jsonData.camera;
+        this.state.camera = cameraFeed;
+
         this.setState(this.state);
     }
 
@@ -76,8 +82,8 @@ class App extends Component {
         this.sendDebugMessage(ATTEMPT_CONNECTION_MESSAGE);
         this.socket = new WebSocket(IP_RASPBERRY);
         this.socket.addEventListener("open", () => this.sendDebugMessage(CONNECT_MESSAGE));
-
         this.socket.addEventListener("close", () => this.onConnectionClosed());
+        this.socket.addEventListener("error", () => this.onConnectionClosed());
         this.socket.addEventListener("message", (event) => this.onDataReceived(event.data))
     }
 
@@ -97,7 +103,7 @@ class App extends Component {
               <div className="row">
                   <DataBox title="General" data={this.state.telemetry.general}></DataBox>
                   <Console messages={this.state.debugMessages}></Console>
-                  <div id="camera"></div>
+                  <Camera camera={this.state.camera}></Camera>
               </div>
 
               <div className="row">

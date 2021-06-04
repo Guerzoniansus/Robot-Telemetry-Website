@@ -53,8 +53,13 @@
   padding: 0px;
 }
 
-#camera {
+#camera-div {
   width: 320px;
   height: 180px;
   background-color: black;
+}
+
+#camera-feed {
+  width: 100%;
+  height: 100%;
 }
