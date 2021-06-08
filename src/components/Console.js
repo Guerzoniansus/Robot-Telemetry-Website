@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 class Console extends Component {
     render() {
 
-        const messages =this.props.messages;
+        const messages = this.props.messages;
 
         return (
             <div class="box box-console">

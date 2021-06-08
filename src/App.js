@@ -5,8 +5,10 @@ import Console from "./components/Console";
 import DataBox from "./components/DataBox";
 import Camera from "./components/Camera";
 
-const UNKNOWN = "-";
 const IP_RASPBERRY = "ws://192.168.68.104:8080";
+
+// String to be displayed when data is unknown
+const UNKNOWN = "-";
 
 const ATTEMPT_CONNECTION_MESSAGE = "Trying to connect with " + IP_RASPBERRY + "....";
 const CONNECT_MESSAGE = "Connected with " + IP_RASPBERRY + ".";
@@ -19,6 +21,7 @@ class App extends Component {
         this.setupSocket();
     }
 
+    // The state of all data coming from the raspberry pi
     state = {
         debugMessages: ["This is where debug messages will be displayed."],
 
@@ -57,11 +60,19 @@ class App extends Component {
         }
     };
 
+
+    /**
+     * Function to be run when the connection is closed with the raspberry PI
+     */
     onConnectionClosed() {
         this.sendDebugMessage(CLOSE_MESSAGE);
         this.setupSocket();
     }
 
+    /**
+     * Function that gets executed when data gets received from the Raspberry PI
+     * @param data - The received data
+     */
     onDataReceived(data) {
         const jsonData = JSON.parse(data);
 
@@ -69,17 +80,21 @@ class App extends Component {
         this.state.telemetry = telemetry;
 
         const debugMessages = jsonData.debug;
-
         debugMessages.forEach(message => this.sendDebugMessage(message));
 
         const cameraFeed = jsonData.camera;
         this.state.camera = cameraFeed;
 
+        // Update the state, re-render the page
         this.setState(this.state);
     }
 
+    /**
+     * Sets up the web socket
+     */
     async setupSocket() {
         this.sendDebugMessage(ATTEMPT_CONNECTION_MESSAGE);
+
         this.socket = new WebSocket(IP_RASPBERRY);
         this.socket.addEventListener("open", () => this.sendDebugMessage(CONNECT_MESSAGE));
         this.socket.addEventListener("close", () => this.onConnectionClosed());
@@ -87,11 +102,14 @@ class App extends Component {
         this.socket.addEventListener("message", (event) => this.onDataReceived(event.data))
     }
 
+    /**
+     * Send a debug message in the chat box
+     * @param message - The message to send
+     */
     sendDebugMessage(message) {
         this.state.debugMessages.push(message);
         this.setState(this.state);
     }
-
 
     render() {
         return (

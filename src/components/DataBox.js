@@ -18,18 +18,29 @@ class DataBox extends Component {
         );
     }
 
+    /**
+     * Transforms data into a nice, presentable manner.
+     * Right now it just capitalizes the first letter of every key.
+     * @param data The data to format
+     * @returns {{}} - The same data, but cleaner
+     */
     formatData(data) {
         const newData = {};
 
         Object.keys(data).forEach(key => {
-            const formattedKey = this.captializeFirstLetter(key);
+            const formattedKey = this.capitalizeFirstLetter(key);
             newData[formattedKey] = data[key];
         });
 
         return newData
     }
 
-    captializeFirstLetter(string) {
+    /**
+     * Capitalized the first letter of a string
+     * @param string The string to change
+     * @returns {string} - The given string but with the first letter capitalized
+     */
+    capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 }
